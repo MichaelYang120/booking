@@ -7,7 +7,7 @@ function App() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const response = await fetch('https://localhost:5000/bookings', {
+    const response = await fetch('http://localhost:5000/bookings', {
       method: "POST",
       body: JSON.stringify({
         name
