@@ -23,6 +23,9 @@ app.post("/bookings", async (req: Request, res: Response) => {
     // console.log(req.body);
     const newBooking = new Booking({
         name: req.body.name,
+        // events: [{
+        //     eventName: req.body.events.eventName,
+        // }]
     });
     // save
     const createdBooking = await newBooking.save();
