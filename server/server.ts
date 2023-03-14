@@ -32,6 +32,17 @@ app.post("/bookings", async (req: Request, res: Response) => {
     res.json(createdBooking); 
 });
 
+app.get("/bookings", async (req: Request, res: Response) => {
+    const events = await Booking.find()
+    res.json(events)
+})
+
+app.delete('/bookings/:eventId', async (req: Request, res: Response) => {
+    const eventId = req.params.eventId;
+    const event = await Booking.findByIdAndDelete(eventId);
+    res.json(event)
+})
+
 app.post("/bookings/:bookingId/addevents", createEvents)
 
 mongoose.connect(
