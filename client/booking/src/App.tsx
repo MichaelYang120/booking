@@ -91,3 +91,5 @@ function App() {
 }
 
 export default App;
+
+// todo: add ui and functionality to work on event card and adding details such as event time, date, and event start time.
