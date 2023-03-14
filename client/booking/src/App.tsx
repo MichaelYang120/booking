@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { json } from 'stream/consumers';
 import './App.css';
 
+// our structure for our post request
+type TEvent = {
+  name: string,
+  _id: string,
+  // events: []
+}
+
 function App() {
   const [name, setName] = useState('');
+  const [events, setEvents] = useState<TEvent[]>([])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -17,13 +25,40 @@ function App() {
       }
     });
     const event = await response.json();
-    event();
+    setEvents([...events, event]);
     setName("");
   }
+
+  async function handleDeleteEvent(eventId: string) {
+    await fetch(`http://localhost:5000/bookings/${eventId}`, {
+      method: "DELETE"
+    })
+
+    // optimistic update here 
+    setEvents(events.filter((event) => event._id !== eventId))
+  }
+  
+  useEffect(() => {
+    async function fetchEvents() {
+      const response = await fetch('http://localhost:5000/bookings');
+
+      const newEvents = await response.json();
+      setEvents(newEvents);
+    }
+    fetchEvents();
+  }, [])
 
   return (
     <div className="App">
       <header className="App-header">
+        <ul className='events'>
+          {events.map((event) => (
+            <li key={event._id}>
+              {event.name}
+              <button onClick={() => handleDeleteEvent(event._id)}>x</button>
+            </li>
+          ))}
+        </ul>
         <p>
          Create your booking by adding your name and insert your event information.
         </p>

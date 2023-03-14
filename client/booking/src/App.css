@@ -35,3 +35,26 @@
 	padding: 30px 30px 15px 30px;
 	border: 5px solid #53687E;
 }
+
+.events {
+  display: grid;
+  width: 600px;
+  margin: 0 auto;
+  grid-gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  color: black;
+}
+
+.events li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  background: pink;
+  border: 1px solid white;
+  border-radius: 10px;
+} 
+
+.events li:hover {
+  background: #eee;
+}
