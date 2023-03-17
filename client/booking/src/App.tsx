@@ -38,6 +38,32 @@ function App() {
     setEvents(events.filter((event) => event._id !== eventId))
   }
   
+  function handleClickEvent() {
+    var eventClassName = document.querySelector(".events");
+    var addonFormClassName = document.querySelector(".addonForm");
+    console.log(eventClassName?.className);
+    if (eventClassName != null) {
+      if (eventClassName.className == "events") {
+        eventClassName.className = "events active";
+
+      } else {
+        eventClassName.className = "events";
+ 
+      }
+    }
+    if (addonFormClassName != null) {
+      if (addonFormClassName.className == "addonForm") {
+        addonFormClassName.className = "addonForm active";
+
+      } else {
+        addonFormClassName.className = "addonForm";
+
+      }
+    }
+  }
+
+
+  
   useEffect(() => {
     async function fetchEvents() {
       const response = await fetch('http://localhost:5000/bookings');
@@ -51,10 +77,27 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <ul className='events'>
+        <ul className="events">
           {events.map((event) => (
-            <li key={event._id}>
+            <li 
+            key={event._id}
+            // onClick={(handleClickEvent)}
+            >
               {event.name}
+              <form className='addonForm'>
+                <div id='fieldContainer events active'>
+                  <label htmlFor='eventName'>Event Name : </label>
+                  <input id='eventName'></input>
+                </div>
+                <div id='fieldContainer events active'>
+                  <label htmlFor='eventDate'>Event Date : </label>
+                  <input id='eventDate'></input>
+                </div>
+                <div id='fieldContainer events active'>
+                  <label htmlFor='eventStartTime'>Event Start Time : </label>
+                  <input id='eventStartTime'></input>
+                </div>
+              </form>
               <button onClick={() => handleDeleteEvent(event._id)}>x</button>
             </li>
           ))}
@@ -71,20 +114,21 @@ function App() {
                 }}
               />
             </div>
-            <div id='fieldContainer'>
+            {/* <div id='fieldContainer events active'>
               <label htmlFor='eventName'>Event Name : </label>
               <input id='eventName'></input>
             </div>
-            <div id='fieldContainer'>
+            <div id='fieldContainer events active'>
               <label htmlFor='eventDate'>Event Date : </label>
               <input id='eventDate'></input>
             </div>
-            <div id='fieldContainer'>
+            <div id='fieldContainer events active'>
               <label htmlFor='eventStartTime'>Event Start Time : </label>
               <input id='eventStartTime'></input>
-            </div>
+            </div> */}
           <button onClick={handleSubmit}>Submit</button>
         </form>
+          <button onClick={() => handleClickEvent()} >Open Events</button>
       </header>
     </div>
   );

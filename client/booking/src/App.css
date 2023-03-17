@@ -38,10 +38,10 @@
 
 .events {
   display: grid;
-  width: 600px;
+  /* width: 600px; */
   margin: 0 auto;
   grid-gap: 10px;
-  grid-template-columns: repeat(3, 1fr);
+  /* grid-template-columns: repeat(3, 1fr); */
   color: black;
 }
 
@@ -53,8 +53,26 @@
   background: pink;
   border: 1px solid white;
   border-radius: 10px;
+}
+
+.events.active li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  background: pink;
+  border: 1px solid white;
+  border-radius: 10px;
 } 
 
 .events li:hover {
   background: #eee;
+}
+
+.addonForm {
+  visibility: hidden;
+}
+
+.addonForm.active {
+  visibility: visible !important;
 }
