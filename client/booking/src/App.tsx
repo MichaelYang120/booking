@@ -37,33 +37,30 @@ function App() {
     setEvents(events.filter((event) => event._id !== eventId))
   }
 
+  // forloop to update classname 
+  let updateClass = ((addonFormClassName: any, newClassName: string) => {
+    addonFormClassName.forEach(function (value: any) {
+      console.log(value);
+      value.className = newClassName;
+    })
+  })
+
+  const eventClassName = document.querySelector(".events");
   function handleClickEvent() {
-    var eventClassName = document.querySelector(".events");
-    var addonFormClassName = document.querySelector(".addonForm");
     console.log(eventClassName?.className);
+    var addonFormClassName = document.querySelectorAll<HTMLInputElement>('.addonForm');
     if (eventClassName != null) {
-      if (eventClassName.className == "events") {
-        var eventsActive = eventClassName.className = "events active";
-        if (eventsActive) {
-          if (addonFormClassName != null) {
-            if (addonFormClassName.className == "addonForm") {
-              var addonActive = addonFormClassName.className = "addonForm active";
-
-            } else {
-              var addonNotActive = addonFormClassName.className = "addonForm";
-
-            }
-          }
-        }
+      if (eventClassName.className === "events") {
+        eventClassName.className = "events active";
+        updateClass(addonFormClassName, "addonForm active");
 
       } else {
-        var eventsNotActive = eventClassName.className = "events";
+        eventClassName.className = "events";
+        updateClass(addonFormClassName, "addonForm");
 
       }
     }
   }
-
-
 
   useEffect(() => {
     async function fetchEvents() {
@@ -115,18 +112,6 @@ function App() {
               }}
             />
           </div>
-          {/* <div id='fieldContainer events active'>
-              <label htmlFor='eventName'>Event Name : </label>
-              <input id='eventName'></input>
-            </div>
-            <div id='fieldContainer events active'>
-              <label htmlFor='eventDate'>Event Date : </label>
-              <input id='eventDate'></input>
-            </div>
-            <div id='fieldContainer events active'>
-              <label htmlFor='eventStartTime'>Event Start Time : </label>
-              <input id='eventStartTime'></input>
-            </div> */}
           <button onClick={handleSubmit}>Submit</button>
         </form>
         <button onClick={() => handleClickEvent()} >Open Events</button>
