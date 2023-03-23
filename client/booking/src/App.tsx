@@ -62,6 +62,10 @@ function App() {
     }
   }
 
+  async function handleUpdateEvents(params:any) {
+    
+  }
+
   useEffect(() => {
     async function fetchEvents() {
       const response = await fetch('http://localhost:5000/bookings');
@@ -95,6 +99,7 @@ function App() {
                   <label htmlFor='eventStartTime'>Event Start Time : </label>
                   <input id='eventStartTime'></input>
                 </div>
+                <button onClick={handleUpdateEvents}>Update Events</button>
               </form>
               <button onClick={() => handleDeleteEvent(event._id)}>x</button>
             </li>
