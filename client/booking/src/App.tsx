@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { json } from 'stream/consumers';
 import './App.css';
 
 // our structure for our post request
@@ -37,33 +36,35 @@ function App() {
     // optimistic update here 
     setEvents(events.filter((event) => event._id !== eventId))
   }
-  
+
   function handleClickEvent() {
     var eventClassName = document.querySelector(".events");
     var addonFormClassName = document.querySelector(".addonForm");
     console.log(eventClassName?.className);
     if (eventClassName != null) {
       if (eventClassName.className == "events") {
-        eventClassName.className = "events active";
+        var eventsActive = eventClassName.className = "events active";
+        if (eventsActive) {
+          if (addonFormClassName != null) {
+            if (addonFormClassName.className == "addonForm") {
+              var addonActive = addonFormClassName.className = "addonForm active";
+
+            } else {
+              var addonNotActive = addonFormClassName.className = "addonForm";
+
+            }
+          }
+        }
 
       } else {
-        eventClassName.className = "events";
- 
-      }
-    }
-    if (addonFormClassName != null) {
-      if (addonFormClassName.className == "addonForm") {
-        addonFormClassName.className = "addonForm active";
-
-      } else {
-        addonFormClassName.className = "addonForm";
+        var eventsNotActive = eventClassName.className = "events";
 
       }
     }
   }
 
 
-  
+
   useEffect(() => {
     async function fetchEvents() {
       const response = await fetch('http://localhost:5000/bookings');
@@ -79,8 +80,8 @@ function App() {
       <header className="App-header">
         <ul className="events">
           {events.map((event) => (
-            <li 
-            key={event._id}
+            <li
+              key={event._id}
             // onClick={(handleClickEvent)}
             >
               {event.name}
@@ -103,18 +104,18 @@ function App() {
           ))}
         </ul>
         <p>
-         Create your booking by adding your name and insert your event information.
+          Create your booking by adding your name and insert your event information.
         </p>
         <form id='eventForm'>
-            <div id='fieldContainer'>
-              <label htmlFor='name'>Your Name : </label>
-              <input id='name' value={name} 
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  setName(e.target.value)
-                }}
-              />
-            </div>
-            {/* <div id='fieldContainer events active'>
+          <div id='fieldContainer'>
+            <label htmlFor='name'>Your Name : </label>
+            <input id='name' value={name}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setName(e.target.value)
+              }}
+            />
+          </div>
+          {/* <div id='fieldContainer events active'>
               <label htmlFor='eventName'>Event Name : </label>
               <input id='eventName'></input>
             </div>
@@ -128,7 +129,7 @@ function App() {
             </div> */}
           <button onClick={handleSubmit}>Submit</button>
         </form>
-          <button onClick={() => handleClickEvent()} >Open Events</button>
+        <button onClick={() => handleClickEvent()} >Open Events</button>
       </header>
     </div>
   );
