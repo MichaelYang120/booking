@@ -6,8 +6,12 @@ type TEvent = {
   name: string,
   _id: string,
   eventsArray: [
-    eventName: string,
+    eventName: string | boolean | number
   ]
+}
+interface AssociativeArray {
+  firstName: string;
+  lastName: string;
 }
 
 function App() {
@@ -41,10 +45,24 @@ function App() {
     // optimistic update here 
     setEvents(events.filter((event) => event._id !== eventId))
   }
+  
 
   // update
   async function handleUpdateEvents(eventId: string) {
+    // var associative_array: AssociativeArray[] = []
+    // associative_array['name'] = 'Tutorialspoint'
+    // var eventsArray = [string:string]
+    // var eventArray: AssociativeArray[] = []
+    // eventArray['eventName'] = eventName,
     console.log("this is event name: " + eventName);
+
+    var eventArray: { [id: string]: AssociativeArray; } = {};
+    eventArray["p1"] = { firstName: "F1", lastName: "L1" };
+    console.log(eventArray)
+
+    // 3/23 need to look at the associative array to pass data and post it to the api request
+    
+    
     // const response = await fetch(`http://localhost:5000/bookings/${eventId}/addevents` , {
     //   method: "POST",
     //   body: JSON.stringify({
