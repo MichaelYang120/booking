@@ -5,12 +5,17 @@ import './App.css';
 type TEvent = {
   name: string,
   _id: string,
-  // events: []
+  eventsArray: [
+    eventName: string,
+  ]
 }
 
 function App() {
   const [name, setName] = useState('');
-  const [events, setEvents] = useState<TEvent[]>([])
+  const [eventName, setEventName] = useState('');
+  const [eventDate, setEventDate] = useState("");
+  const [eventStartTime, setEventStartTime] = useState("");
+  const [events, setEvents] = useState<TEvent[]>([]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -37,6 +42,24 @@ function App() {
     setEvents(events.filter((event) => event._id !== eventId))
   }
 
+  // update
+  async function handleUpdateEvents(eventId: string) {
+    console.log("this is event name: " + eventName);
+    // const response = await fetch(`http://localhost:5000/bookings/${eventId}/addevents` , {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     eventName,
+    //   }),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   }
+    // });
+    // const event = await response.json();
+    // setEvents([...events, event]);
+    // setEventName("");
+    console.log(eventName);
+  }
+
   // forloop to update classname 
   let updateClass = ((addonFormClassName: any, newClassName: string) => {
     addonFormClassName.forEach(function (value: any) {
@@ -45,6 +68,15 @@ function App() {
     })
   })
 
+  // todo: increment input fields
+  let updateClassField = ((eventName: any) => {
+    eventName.array.forEach(function (value: any) {
+      console.log(value);
+      value.eventName = eventName + " i"
+    });
+  }) 
+
+  // function for click on event 
   const eventClassName = document.querySelector(".events");
   function handleClickEvent() {
     console.log(eventClassName?.className);
@@ -62,14 +94,11 @@ function App() {
     }
   }
 
-  async function handleUpdateEvents(params:any) {
-    
-  }
+
 
   useEffect(() => {
     async function fetchEvents() {
       const response = await fetch('http://localhost:5000/bookings');
-
       const newEvents = await response.json();
       setEvents(newEvents);
     }
@@ -83,24 +112,30 @@ function App() {
           {events.map((event) => (
             <li
               key={event._id}
-            // onClick={(handleClickEvent)}
             >
               {event.name}
               <form className='addonForm'>
                 <div id='fieldContainer events active'>
                   <label htmlFor='eventName'>Event Name : </label>
-                  <input id='eventName'></input>
+                  <input id='eventName' value={eventName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setEventName(e.target.value)
+                  }} />
                 </div>
                 <div id='fieldContainer events active'>
                   <label htmlFor='eventDate'>Event Date : </label>
-                  <input id='eventDate'></input>
+                  <input id='eventDate' value={eventDate} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setEventDate(e.target.value)
+                  }} />
                 </div>
                 <div id='fieldContainer events active'>
                   <label htmlFor='eventStartTime'>Event Start Time : </label>
-                  <input id='eventStartTime'></input>
+                  <input id='eventStartTime' value={eventStartTime} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setEventStartTime(e.target.value)
+                  }} />
                 </div>
-                <button onClick={handleUpdateEvents}>Update Events</button>
               </form>
+              {/* <button onSubmit={() => handleUpdateEvents(event._id)}>Update Events</button> */}
+              <button onClick={() => handleUpdateEvents(event._id)}>Update Events</button>
               <button onClick={() => handleDeleteEvent(event._id)}>x</button>
             </li>
           ))}
