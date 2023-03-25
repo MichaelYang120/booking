@@ -10,8 +10,9 @@ type TEvent = {
   ]
 }
 interface AssociativeArray {
-  firstName: string;
-  lastName: string;
+  eventName: string;
+  eventDate: string;
+  eventStartTime: string;
 }
 
 function App() {
@@ -46,19 +47,15 @@ function App() {
     setEvents(events.filter((event) => event._id !== eventId))
   }
   
-
-  // TODO: this section still needs work
-  async function handleUpdateEvents(eventId: string, eventName: string) {
-    console.log("this is event name: " + eventName);
-    var eventsdata: { [eventName: string]: AssociativeArray; } = {};
+  async function handleUpdateEvents(eventId: string, eventName: string ) {
+    // console.log("this is event name: " + eventName);
+    let eventsdata: { [eventName: string]: AssociativeArray; } = {};
     eventsdata["events"] = { 
-      firstName: eventName, 
-      lastName: "L1" 
+      eventName: eventName, 
+      eventDate: eventDate,
+      eventStartTime: eventStartTime,
     };
-    console.log(eventsdata)
-
-    // 3/23 need to look at the associative array to pass data and post it to the api request
-    
+    // console.log(eventsdata)    
     
     const response = await fetch(`http://localhost:5000/bookings/${eventId}/addevents` , {
       method: "POST",
@@ -69,10 +66,7 @@ function App() {
         "Content-Type": "application/json",
       }
     });
-    const event = await response.json();
-    setEvents([...events, event]);
-    setEventName("");
-    console.log(eventName);
+    await response.json();
   }
 
   // forloop to update classname 
@@ -82,14 +76,6 @@ function App() {
       value.className = newClassName;
     })
   })
-
-  // todo: increment input fields
-  let updateClassField = ((eventName: any) => {
-    eventName.array.forEach(function (value: any) {
-      console.log(value);
-      value.eventName = eventName + " i"
-    });
-  }) 
 
   // function for click on event 
   const eventClassName = document.querySelector(".events");
@@ -104,7 +90,6 @@ function App() {
       } else {
         eventClassName.className = "events";
         updateClass(addonFormClassName, "addonForm");
-
       }
     }
   }
@@ -146,8 +131,8 @@ function App() {
                     setEventStartTime(e.target.value)
                   }} />
                 </div>
-              </form>
               <button onClick={() => handleUpdateEvents(event._id, eventName)}>Update Events</button>
+              </form>
               <button onClick={() => handleDeleteEvent(event._id)}>x</button>
             </li>
           ))}
@@ -173,5 +158,3 @@ function App() {
 }
 
 export default App;
-
-// todo: add ui and functionality to work on event card and adding details such as event time, date, and event start time.
