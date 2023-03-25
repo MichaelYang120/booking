@@ -5,12 +5,22 @@ import './App.css';
 type TEvent = {
   name: string,
   _id: string,
-  // events: []
+  eventsArray: [
+    eventName: string | boolean | number
+  ]
+}
+interface AssociativeArray {
+  eventName: string;
+  eventDate: string;
+  eventStartTime: string;
 }
 
 function App() {
   const [name, setName] = useState('');
-  const [events, setEvents] = useState<TEvent[]>([])
+  const [eventName, setEventName] = useState('');
+  const [eventDate, setEventDate] = useState("");
+  const [eventStartTime, setEventStartTime] = useState("");
+  const [events, setEvents] = useState<TEvent[]>([]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -36,6 +46,28 @@ function App() {
     // optimistic update here 
     setEvents(events.filter((event) => event._id !== eventId))
   }
+  
+  async function handleUpdateEvents(eventId: string, eventName: string ) {
+    // console.log("this is event name: " + eventName);
+    let eventsdata: { [eventName: string]: AssociativeArray; } = {};
+    eventsdata["events"] = { 
+      eventName: eventName, 
+      eventDate: eventDate,
+      eventStartTime: eventStartTime,
+    };
+    // console.log(eventsdata)    
+    
+    const response = await fetch(`http://localhost:5000/bookings/${eventId}/addevents` , {
+      method: "POST",
+      body: JSON.stringify(
+        eventsdata
+      ),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    await response.json();
+  }
 
   // forloop to update classname 
   let updateClass = ((addonFormClassName: any, newClassName: string) => {
@@ -45,6 +77,7 @@ function App() {
     })
   })
 
+  // function for click on event 
   const eventClassName = document.querySelector(".events");
   function handleClickEvent() {
     console.log(eventClassName?.className);
@@ -57,7 +90,6 @@ function App() {
       } else {
         eventClassName.className = "events";
         updateClass(addonFormClassName, "addonForm");
-
       }
     }
   }
@@ -65,7 +97,6 @@ function App() {
   useEffect(() => {
     async function fetchEvents() {
       const response = await fetch('http://localhost:5000/bookings');
-
       const newEvents = await response.json();
       setEvents(newEvents);
     }
@@ -79,22 +110,28 @@ function App() {
           {events.map((event) => (
             <li
               key={event._id}
-            // onClick={(handleClickEvent)}
             >
               {event.name}
               <form className='addonForm'>
                 <div id='fieldContainer events active'>
                   <label htmlFor='eventName'>Event Name : </label>
-                  <input id='eventName'></input>
+                  <input id='eventName' value={eventName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setEventName(e.target.value)
+                  }} />
                 </div>
                 <div id='fieldContainer events active'>
                   <label htmlFor='eventDate'>Event Date : </label>
-                  <input id='eventDate'></input>
+                  <input id='eventDate' value={eventDate} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setEventDate(e.target.value)
+                  }} />
                 </div>
                 <div id='fieldContainer events active'>
                   <label htmlFor='eventStartTime'>Event Start Time : </label>
-                  <input id='eventStartTime'></input>
+                  <input id='eventStartTime' value={eventStartTime} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setEventStartTime(e.target.value)
+                  }} />
                 </div>
+              <button onClick={() => handleUpdateEvents(event._id, eventName)}>Update Events</button>
               </form>
               <button onClick={() => handleDeleteEvent(event._id)}>x</button>
             </li>
@@ -121,5 +158,3 @@ function App() {
 }
 
 export default App;
-
-// todo: add ui and functionality to work on event card and adding details such as event time, date, and event start time.
