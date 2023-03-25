@@ -47,34 +47,31 @@ function App() {
   }
   
 
-  // update
-  async function handleUpdateEvents(eventId: string) {
-    // var associative_array: AssociativeArray[] = []
-    // associative_array['name'] = 'Tutorialspoint'
-    // var eventsArray = [string:string]
-    // var eventArray: AssociativeArray[] = []
-    // eventArray['eventName'] = eventName,
+  // TODO: this section still needs work
+  async function handleUpdateEvents(eventId: string, eventName: string) {
     console.log("this is event name: " + eventName);
-
-    var eventArray: { [id: string]: AssociativeArray; } = {};
-    eventArray["p1"] = { firstName: "F1", lastName: "L1" };
-    console.log(eventArray)
+    var eventsdata: { [eventName: string]: AssociativeArray; } = {};
+    eventsdata["events"] = { 
+      firstName: eventName, 
+      lastName: "L1" 
+    };
+    console.log(eventsdata)
 
     // 3/23 need to look at the associative array to pass data and post it to the api request
     
     
-    // const response = await fetch(`http://localhost:5000/bookings/${eventId}/addevents` , {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     eventName,
-    //   }),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   }
-    // });
-    // const event = await response.json();
-    // setEvents([...events, event]);
-    // setEventName("");
+    const response = await fetch(`http://localhost:5000/bookings/${eventId}/addevents` , {
+      method: "POST",
+      body: JSON.stringify(
+        eventsdata
+      ),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    const event = await response.json();
+    setEvents([...events, event]);
+    setEventName("");
     console.log(eventName);
   }
 
@@ -111,8 +108,6 @@ function App() {
       }
     }
   }
-
-
 
   useEffect(() => {
     async function fetchEvents() {
@@ -152,8 +147,7 @@ function App() {
                   }} />
                 </div>
               </form>
-              {/* <button onSubmit={() => handleUpdateEvents(event._id)}>Update Events</button> */}
-              <button onClick={() => handleUpdateEvents(event._id)}>Update Events</button>
+              <button onClick={() => handleUpdateEvents(event._id, eventName)}>Update Events</button>
               <button onClick={() => handleDeleteEvent(event._id)}>x</button>
             </li>
           ))}
