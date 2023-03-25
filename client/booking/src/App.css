@@ -34,6 +34,8 @@
 	background: #495C70;
 	padding: 30px 30px 15px 30px;
 	border: 5px solid #53687E;
+  display: flex;
+  
 }
 
 .events {
@@ -56,13 +58,14 @@
 }
 
 .events.active li {
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
   height: 400px;
   background: pink;
   border: 1px solid white;
   border-radius: 10px;
+  padding: 20px;
 } 
 
 .events li:hover {
