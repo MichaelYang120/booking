@@ -112,6 +112,7 @@ function App() {
               key={event._id}
             >
               {event.name}
+              {event.eventsArray}
               <form className='addonForm'>
                 <div id='fieldContainer events active' className='eventContainer'>
                   <label htmlFor='eventName'>Event Name : </label>
