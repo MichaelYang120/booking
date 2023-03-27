@@ -80,4 +80,13 @@
   visibility: visible !important;
 }
 
-/* todo: 3/25 added stying to inputs for spacing */
+.eventContainer{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+/* todo: fix sizing for input button belows */
+/* .eventContainer input{
+  font-size: 20px;
+} */

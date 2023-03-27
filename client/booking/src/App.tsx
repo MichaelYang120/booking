@@ -113,27 +113,27 @@ function App() {
             >
               {event.name}
               <form className='addonForm'>
-                <div id='fieldContainer events active'>
+                <div id='fieldContainer events active' className='eventContainer'>
                   <label htmlFor='eventName'>Event Name : </label>
                   <input id='eventName' value={eventName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setEventName(e.target.value)
                   }} />
                 </div>
-                <div id='fieldContainer events active'>
+                <div id='fieldContainer events active' className='eventContainer'>
                   <label htmlFor='eventDate'>Event Date : </label>
                   <input id='eventDate' value={eventDate} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setEventDate(e.target.value)
                   }} />
                 </div>
-                <div id='fieldContainer events active'>
+                <div id='fieldContainer events active' className='eventContainer'>
                   <label htmlFor='eventStartTime'>Event Start Time : </label>
                   <input id='eventStartTime' value={eventStartTime} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setEventStartTime(e.target.value)
                   }} />
                 </div>
-              <button onClick={() => handleUpdateEvents(event._id, eventName)}>Update Events</button>
+              <button onClick={() => handleUpdateEvents(event._id, eventName)}>Update Event</button>
               </form>
-              <button onClick={() => handleDeleteEvent(event._id)}>x</button>
+              <button onClick={() => handleDeleteEvent(event._id)}>Delete Event</button>
             </li>
           ))}
         </ul>
