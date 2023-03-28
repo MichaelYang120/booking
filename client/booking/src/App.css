@@ -72,6 +72,10 @@
   background: #eee;
 }
 
+.events.active li:hover {
+  background: pink;
+}
+
 .addonForm {
   visibility: hidden;
 }
@@ -86,7 +90,12 @@
   padding: 10px;
 }
 
-/* todo: fix sizing for input button belows */
-/* .eventContainer input{
+.eventtag{
   font-size: 20px;
-} */
+  margin-right: 5px;
+}
+
+.inputtag {
+  padding: 0 5px;
+  height: 24px;
+}

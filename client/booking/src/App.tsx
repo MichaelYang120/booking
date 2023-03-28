@@ -116,20 +116,20 @@ function App() {
               {event.eventsArray}
               <form className='addonForm'>
                 <div id='fieldContainer events active' className='eventContainer'>
-                  <label htmlFor='eventName'>Event Name : </label>
-                  <input id='eventName' value={eventName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  <label htmlFor='eventName' className='eventtag'>Event Name : </label>
+                  <input id='eventName' value={eventName} className="inputtag" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setEventName(e.target.value)
                   }} />
                 </div>
                 <div id='fieldContainer events active' className='eventContainer'>
-                  <label htmlFor='eventDate'>Event Date : </label>
-                  <input id='eventDate' value={eventDate} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  <label htmlFor='eventDate' className='eventtag'>Event Date : </label>
+                  <input id='eventDate' value={eventDate} className="inputtag" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setEventDate(e.target.value)
                   }} />
                 </div>
                 <div id='fieldContainer events active' className='eventContainer'>
-                  <label htmlFor='eventStartTime'>Event Start Time : </label>
-                  <input id='eventStartTime' value={eventStartTime} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  <label htmlFor='eventStartTime' className='eventtag'>Event Start Time : </label>
+                  <input id='eventStartTime' value={eventStartTime} className="inputtag" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setEventStartTime(e.target.value)
                   }} />
                 </div>
