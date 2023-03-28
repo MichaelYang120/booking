@@ -6,7 +6,9 @@ type TEvent = {
   name: string,
   _id: string,
   eventsArray: [
-    eventName: string | boolean | number
+    eventName: string | boolean | number,
+    eventDate: string,
+    eventStartTime: string,
   ]
 }
 interface AssociativeArray {
@@ -21,6 +23,7 @@ function App() {
   const [eventDate, setEventDate] = useState("");
   const [eventStartTime, setEventStartTime] = useState("");
   const [events, setEvents] = useState<TEvent[]>([]);
+  const [eventsArrg, setEventsArrg] = useState<TEvent[]>([]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -35,7 +38,10 @@ function App() {
     });
     const event = await response.json();
     setEvents([...events, event]);
+    setEventsArrg([...eventsArrg, event]);
+    console.log("set events" + setEventsArrg);
     setName("");
+
   }
 
   async function handleDeleteEvent(eventId: string) {
@@ -112,8 +118,6 @@ function App() {
               key={event._id}
             >
               {event.name}
-              {/* todo: need to show this array to the end users */}
-              {event.eventsArray}
               <form className='addonForm'>
                 <div id='fieldContainer events active' className='eventContainer'>
                   <label htmlFor='eventName' className='eventtag'>Event Name : </label>
@@ -154,6 +158,17 @@ function App() {
           <button onClick={handleSubmit}>Submit</button>
         </form>
         <button onClick={() => handleClickEvent()} >Open Events</button>
+        <div>
+          {eventsArrg.map((events) => (
+            <div>
+              <p>
+              {eventName}
+              {eventDate}
+              {eventStartTime}
+              </p>
+            </div>
+          ))}
+        </div>
       </header>
     </div>
   );

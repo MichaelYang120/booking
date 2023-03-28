@@ -30,6 +30,7 @@ app.post("/bookings", async (req: Request, res: Response) => {
     // save
     const createdBooking = await newBooking.save();
     res.json(createdBooking); 
+    console.log(res.json(createdBooking)); 
 });
 
 app.get("/bookings", async (req: Request, res: Response) => {
