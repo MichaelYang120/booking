@@ -166,6 +166,7 @@ function App() {
               {eventDate}
               {eventStartTime}
               </p>
+              {/* todo: review this and see how it renders and show these values */}
             </div>
           ))}
         </div>
