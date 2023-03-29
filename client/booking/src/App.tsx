@@ -157,7 +157,7 @@ function App() {
           </div>
           <button onClick={handleSubmit}>Submit</button>
         </form>
-        <button onClick={() => handleClickEvent()} >Open Events</button>
+        <button onClick={() => handleClickEvent()} >{document.querySelector(".addonForm") ? "open event" : "close events"}</button>
         <div>
           {eventsArrg.map((events) => (
             <div>
